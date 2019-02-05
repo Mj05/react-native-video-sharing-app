@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, ActivityIndicator, FlatList, ScrollView, RefreshControl } from "react-native";
+import { View, Text, ActivityIndicator, FlatList, ScrollView, RefreshControl, ImageBackground, Image, TouchableOpacity, Linking } from "react-native";
 import GlobalStyles from "../../setup/style";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getVideoContent } from "../../models/home/action";
 import MessageBox from "../../components/message-box";
+import styles from "./style";
+
 
 class Home extends Component {
   constructor() {
@@ -60,8 +62,24 @@ class Home extends Component {
   _renderItem = (video) => {
     return (
       <View style={[GlobalStyles.container, GlobalStyles.alignItemCenter]}>
-        <View>
-          <Text>{video.title}</Text>
+        <View style={styles.videoContainer}>
+          <View style={[styles.thumbnailContainer, GlobalStyles.center]}>
+            <ImageBackground
+                style={[styles.videoThumbnail, GlobalStyles.center]}
+                source={{
+                  uri: video.thumbnail_url
+                }}>
+                <TouchableOpacity onPress={() => {
+                  Linking.openURL(video.video_url);
+                }}>
+                  <Image style={styles.playIcon} source={{ uri: "https://elstreeweb.weebly.com/uploads/1/4/9/9/14997472/546484_orig.png?1"}} />
+                </TouchableOpacity>  
+            </ImageBackground>
+            <View style={[GlobalStyles.flexDirectionRow, GlobalStyles.alignItemCenter]}>  
+              <Text style={styles.videoTitle}>{video.title}</Text>
+              <Image style={styles.shareIcon} source={{ uri: "https://www.clipartmax.com/png/small/61-610361_index-of-pound-sets-social-media-social-media-icons-png-waterdrop-share.png"}} />
+            </View>
+          </View>
         </View>
       </View>
     )
