@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ActivityIndicator, FlatList, ScrollView } from "react-native";
+import { View, Text, ActivityIndicator, FlatList, ScrollView, RefreshControl } from "react-native";
 import GlobalStyles from "../../setup/style";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -12,7 +12,9 @@ class Home extends Component {
     this.state = {
       isLoading: false,
       message: null,
-      visibleMessageBox: false 
+      visibleMessageBox: false,
+      dataSource: [],
+      refreshing: false 
     }
   }
 
@@ -30,13 +32,16 @@ class Home extends Component {
 
   getVideoContentSuccess = () => {
     this.setState({
-      isLoading: false
+      isLoading: false,
+      refreshing: false,
+      dataSource: this.props.videos
     });
   }
 
   getVideoContentFailed = (error_message) => {
     this.setState({
       isLoading: false,
+      refreshing: false,
       visibleMessageBox: true,
       message: error_message
     });
@@ -46,6 +51,11 @@ class Home extends Component {
       })
     }, 3000);
   }
+
+  _onRefresh = () => {
+    this.setState({ refreshing: true, visibleMessageBox: false });
+    this.props.dispatch(getVideoContent(this.getVideoContentSuccess, (error_message) => this.getVideoContentFailed(error_message)));
+  };
 
   _renderItem = (video) => {
     return (
@@ -68,9 +78,21 @@ class Home extends Component {
     }else{
       return (
         <View style={[GlobalStyles.container]}>
-          <ScrollView>
+          <ScrollView 
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+              colors={[GLOBAL_CONFIG.COLOR.RED]}
+            />
+          }
+           onMomentumScrollEnd={() => {
+             this.setState({
+              dataSource: this.state.dataSource.concat(this.props.videos)
+            })
+          }}>
 						<FlatList
-							data={this.props.videos}
+							data={this.state.dataSource}
 							renderItem={(video) => this._renderItem(video.item)}
 							keyExtractor={(video, index) => index.toString()}
 						/>
