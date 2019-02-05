@@ -7,7 +7,7 @@ class Splash extends Component{
   render() {
     return (
       <View style={[GlobalStyles.container, GlobalStyles.center]}>
-        <Image style={styles.image} source={{uri : "https://facebook.github.io/react-native/docs/assets/favicon.png"}}></Image>
+        <Image style={styles.image} source={{ uri: "https://previews.123rf.com/images/fokaspokas/fokaspokas1806/fokaspokas180600445/103144809-share-icon-arrow-and-square-white-icon-with-shadow-on-transparent-background.jpg"}}></Image>
       </View>
     );
   }

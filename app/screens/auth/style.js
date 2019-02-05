@@ -33,8 +33,32 @@ const signUpStyles = StyleSheet.create({
     }
 });
 
+const loginStyles = StyleSheet.create({
+    horizontalLine: {
+        borderLeftColor: GLOBAL_CONFIG.COLOR.WHITE,
+        borderLeftWidth: 2
+    },
+    loginTitleText: {
+        fontSize: 25, 
+        fontWeight: "500", 
+        color: GLOBAL_CONFIG.COLOR.WHITE
+    },
+    loginTitleView: {
+        padding: "3%"
+    },
+    footer: {
+        height: 40, 
+        marginLeft: "5%", 
+        marginRight: "5%"
+    },
+    errorMessageView: {
+        marginBottom: '3%'
+    }  
+});
+
 const styles = {
-    signUpStyles
+    signUpStyles,
+    loginStyles
 }
 
 export default styles;

@@ -10,7 +10,7 @@ const SignUp = Navigator("SignUp");
 const Login = Navigator("Login");
 const Home = Navigator("Home");
 
-const Branch = ({ Auth }) =>(Auth.is_registered) ?  ( Auth.is_logged_in ? <Home /> : <Login />) : <SignUp/> ;
+const Branch = ({ Auth }) =>(Auth.is_logged_in) ? <Home /> : <Login />;
 
 const mapStateToProps = state => {
   return {

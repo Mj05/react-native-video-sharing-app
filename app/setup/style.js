@@ -20,6 +20,27 @@ const GlobalStyles = StyleSheet.create({
     },
     flexDirectionColumn: {
         flexDirection: "column"
+    },
+    alignLeft: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center"
+    },
+    alignRight: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "center"
+    },
+    underlineText: {
+        textDecorationLine: "underline"
+    },
+    whiteText: {
+        color: GLOBAL_CONFIG.COLOR.WHITE
+    },
+    errorMessageFonts: {
+        fontSize: 9
     }
 });
 

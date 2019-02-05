@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, BackHandler } from "react-native";
 import GlobalStyles from "../../setup/style";
 import PhotoUpload from 'react-native-photo-upload'
 import styles from "./style";
@@ -28,6 +28,27 @@ class SignUp extends Component {
 
   registerUser = () => {
     this.props.dispatch(registerNewUser(this.state.full_name, this.state.email, this.state.password, this.state.profile_image));
+  }
+
+  componentWillMount() {
+    // Handle device back press to exit app
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    BackHandler.exitApp()
+  };
+
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+
   }
 
   render() {
@@ -94,7 +115,9 @@ class SignUp extends Component {
         </View>
         </ScrollView>
         <View style={[GlobalStyles.center, styles.signUpStyles.cancelButton]}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => {
+            this.props.navigation.goBack();
+          }}>
             <Text>{GLOBAL_LANG.CANCEL}</Text>
          </TouchableOpacity>
         </View>

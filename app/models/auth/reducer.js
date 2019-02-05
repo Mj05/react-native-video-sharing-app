@@ -1,8 +1,7 @@
-import { HANDLE_ERROR, REGISTER_USER } from "./action";
+import { HANDLE_ERROR, REGISTER_USER, SIGN_IN } from "./action";
 
 const initialState = {
   is_logged_in: false,
-  is_registered: false,
   active_member_profile: {}
 };
 
@@ -21,9 +20,14 @@ export default (state = initialState, action) => {
     case REGISTER_USER:
       return {
         ...state,
-        is_registered: true,
+        is_logged_in: true,
         active_member_profile: setActiveMemberProfile(state, action.name, action.email, action.password, action.profile_img)
       }
+    case SIGN_IN:
+      return {
+        ...state,
+        is_logged_in: true
+      }  
     case HANDLE_ERROR:
       return state;
       
