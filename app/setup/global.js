@@ -1,5 +1,6 @@
 module.exports = {
     COLOR: {
-        WHITE: '#ffffff'
+        RED: '#800000',
+        WHITE: "#ffffff"
     }
 };

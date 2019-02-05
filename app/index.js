@@ -4,8 +4,21 @@ import reduxStore from "./setup/store";
 import { PersistGate } from "redux-persist/integration/react";
 import Splash from "../app/screens/splash/splash";
 import Navigator from "../app/setup/routes";
+import { connect } from "react-redux";
 
 const SignUp = Navigator("SignUp");
+const Login = Navigator("Login");
+const Home = Navigator("Home");
+
+const Branch = ({ Auth }) =>(Auth.is_registered) ?  ( Auth.is_logged_in ? <Home /> : <Login />) : <SignUp/> ;
+
+const mapStateToProps = state => {
+  return {
+    Auth: state.Auth
+  };
+};
+
+const BranchRoute = connect(mapStateToProps)(Branch);
 
 export default class RNStart extends Component {
   constructor() {
@@ -26,7 +39,7 @@ export default class RNStart extends Component {
       return (
         <Provider store={reduxStore.store}>
           <PersistGate persistor={reduxStore.persistor}>
-            <SignUp />
+            <BranchRoute />
           </PersistGate>
         </Provider>
       );
