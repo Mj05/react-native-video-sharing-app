@@ -1,18 +1,19 @@
 import { StyleSheet, Dimensions } from "react-native";
-const videoThumbnailWidth = Dimensions.get("window").width - 40;
+const videoThumbnailWidth = Dimensions.get("window").width - 70;
 
 const styles = StyleSheet.create({
     videoThumbnail: {
         height: 200,
-        width: videoThumbnailWidth
+        width: videoThumbnailWidth,
+        marginTop: -30
     },
     videoContainer: {
-        padding: "3%"
+        padding: "5%"
     },
     thumbnailContainer: {
         backgroundColor: GLOBAL_CONFIG.COLOR.WHITE,
-        padding: "2%",
-        borderRadius: 10
+        padding: "5%",
+        borderRadius: 50
     },
     playIcon: {
         height: 50,
@@ -25,6 +26,9 @@ const styles = StyleSheet.create({
     videoTitle: {
         padding: '2%',
         fontWeight: "500"
+    },
+    imageStyle: {
+        borderRadius: 50
     }
 });
 

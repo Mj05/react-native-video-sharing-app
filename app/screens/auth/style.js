@@ -10,7 +10,9 @@ const signUpStyles = StyleSheet.create({
         paddingVertical: 5,
         width: 80,
         height: 80,
-        borderRadius: 75
+        borderRadius: 75,
+        borderWidth: 1,
+        borderColor: GLOBAL_CONFIG.COLOR.WHITE
     },
     input: {
         width: 250, 
@@ -19,10 +21,10 @@ const signUpStyles = StyleSheet.create({
     registerButton: {
         width: 250, 
         borderRadius: 20, 
-        backgroundColor: "#B4B4CD"
+        backgroundColor: "#9D1930"
     },
     cancelButton: {
-        backgroundColor: "#B4B4CD",
+        backgroundColor: "#9D1930",
          height: 40
     },
     registerButtonView: {
@@ -30,6 +32,9 @@ const signUpStyles = StyleSheet.create({
     },
     form: {
         marginBottom: "10%"
+    },
+    imageStyle: {
+        borderRadius: 75,
     }
 });
 

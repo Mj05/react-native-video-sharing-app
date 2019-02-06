@@ -11,5 +11,10 @@ module.exports = {
     SIGNIN_ERROR: "Invalid User Name OR Password",
     LOADING: "Loading...",
     COMMON_ERROR_MESSAGE: "Opps..something went wrong",
-    NETWORK_ERROR: "ERROR: Please check your internet connection..!" 
+    NETWORK_ERROR: "ERROR: Please check your internet connection..!",
+    UPLOAD: "Upload",
+    SIGNUP_ERROR: "Please provide name email and password",
+    SHARE_MESSAGE: "Something interesting I hope you will definetly like it",
+    PROFILE: "Profile",
+    HOME: "Home" 
 };

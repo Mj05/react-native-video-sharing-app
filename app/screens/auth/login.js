@@ -86,7 +86,7 @@ class Login extends Component {
                 this.signIn();
               }}>
                 <View style={styles.signUpStyles.registerButtonView}>
-                   <Text>{GLOBAL_LANG.SIGNIN}</Text>
+                   <Text style={GlobalStyles.whiteText}>{GLOBAL_LANG.SIGNIN}</Text>
                 </View>
               </TouchableOpacity>
            </View>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, BackHandler } from "react-native";
+import { View, Text, ImageBackground, TextInput, TouchableOpacity, ScrollView, BackHandler } from "react-native";
 import GlobalStyles from "../../setup/style";
 import PhotoUpload from 'react-native-photo-upload'
 import styles from "./style";
@@ -18,7 +18,9 @@ class SignUp extends Component {
       full_name: null,
       email: null,
       password: null,
-      profile_image: null
+      profile_image: null,
+      signUpErrorVisible: null,
+      error_message: null
     }
   }
 
@@ -27,7 +29,14 @@ class SignUp extends Component {
   };
 
   registerUser = () => {
-    this.props.dispatch(registerNewUser(this.state.full_name, this.state.email, this.state.password, this.state.profile_image));
+    if (this.state.full_name && this.state.email && this.state.password) {
+      this.props.dispatch(registerNewUser(this.state.full_name, this.state.email, this.state.password, this.state.profile_image));
+    }else {
+      this.setState({
+        signUpErrorVisible: true,
+        error_message: GLOBAL_LANG.SIGNUP_ERROR
+      });
+    }
   }
 
   componentWillMount() {
@@ -64,13 +73,14 @@ class SignUp extends Component {
                 }
               }}
             >
-                <Image
-                  style={styles.signUpStyles.previewImage}
+                <ImageBackground
+                  style={[styles.signUpStyles.previewImage, GlobalStyles.center]}
+                  imageStyle={styles.signUpStyles.imageStyle}
                   resizeMode='cover'
                   source={{
                     uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
                   }}
-                />
+                ><Text>{GLOBAL_LANG.UPLOAD}</Text></ImageBackground>
             </PhotoUpload>
             <View style={[GlobalStyles.flexDirectionColumn, styles.signUpStyles.form]}>
               <TextInput
@@ -103,11 +113,18 @@ class SignUp extends Component {
                 value={this.state.password}
                 secureTextEntry={true}
               />
+              {
+                (this.state.signUpErrorVisible) ?
+                <View style={[GlobalStyles.center, styles.loginStyles.errorMessageView]}>
+                  <Text style={[GlobalStyles.whiteText, GlobalStyles.errorMessageFonts]}>{this.state.error_message}</Text>
+                </View> : null
+              }
+
               <TouchableOpacity style={[GlobalStyles.center, styles.signUpStyles.registerButton]} onPress={() => {
                 this.registerUser();
               }}>
                 <View style={styles.signUpStyles.registerButtonView}>
-                   <Text>{GLOBAL_LANG.REGISTER}</Text>
+                   <Text style={GlobalStyles.whiteText}>{GLOBAL_LANG.REGISTER}</Text>
                 </View>
               </TouchableOpacity>
            </View>
@@ -118,7 +135,7 @@ class SignUp extends Component {
           <TouchableOpacity onPress={() => {
             this.props.navigation.goBack();
           }}>
-            <Text>{GLOBAL_LANG.CANCEL}</Text>
+            <Text style={GlobalStyles.whiteText}>{GLOBAL_LANG.CANCEL}</Text>
          </TouchableOpacity>
         </View>
       </View>

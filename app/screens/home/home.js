@@ -1,14 +1,19 @@
 import React, { Component } from "react";
-import { View, Text, ActivityIndicator, FlatList, ScrollView, RefreshControl, ImageBackground, Image, TouchableOpacity, Linking } from "react-native";
+import { View, Text, ActivityIndicator, FlatList, ScrollView, RefreshControl, ImageBackground, Image, TouchableOpacity, Linking, Share } from "react-native";
 import GlobalStyles from "../../setup/style";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getVideoContent } from "../../models/home/action";
 import MessageBox from "../../components/message-box";
 import styles from "./style";
+import Header from "../../components/header";
 
 
 class Home extends Component {
+  static navigationOptions = ({ navigation }) => ({
+		header: <Header title={GLOBAL_LANG.HOME}  navigation={navigation} isProfileButtonVisible={true} />
+  });
+  
   constructor() {
     super();
     this.state = {
@@ -54,6 +59,15 @@ class Home extends Component {
     }, 3000);
   }
 
+  share = (video_url) => {
+    Share.share({
+      message:
+        GLOBAL_LANG.SHARE_MESSAGE +
+        "\n" +
+        video_url
+    });
+  };
+
   _onRefresh = () => {
     this.setState({ refreshing: true, visibleMessageBox: false });
     this.props.dispatch(getVideoContent(this.getVideoContentSuccess, (error_message) => this.getVideoContentFailed(error_message)));
@@ -66,6 +80,7 @@ class Home extends Component {
           <View style={[styles.thumbnailContainer, GlobalStyles.center]}>
             <ImageBackground
                 style={[styles.videoThumbnail, GlobalStyles.center]}
+                imageStyle={styles.imageStyle}
                 source={{
                   uri: video.thumbnail_url
                 }}>
@@ -77,7 +92,11 @@ class Home extends Component {
             </ImageBackground>
             <View style={[GlobalStyles.flexDirectionRow, GlobalStyles.alignItemCenter]}>  
               <Text style={styles.videoTitle}>{video.title}</Text>
-              <Image style={styles.shareIcon} source={{ uri: "https://www.clipartmax.com/png/small/61-610361_index-of-pound-sets-social-media-social-media-icons-png-waterdrop-share.png"}} />
+              <TouchableOpacity onPress={() => {
+                this.share(video.video_url)
+              }}>
+                <Image style={styles.shareIcon} source={{ uri: "https://www.clipartmax.com/png/small/61-610361_index-of-pound-sets-social-media-social-media-icons-png-waterdrop-share.png"}} />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
