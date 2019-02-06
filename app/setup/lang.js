@@ -16,5 +16,8 @@ module.exports = {
     SIGNUP_ERROR: "Please provide name email and password",
     SHARE_MESSAGE: "Something interesting I hope you will definetly like it",
     PROFILE: "Profile",
-    HOME: "Home" 
+    HOME: "Home",
+    LOGOUT: "LOGOUT",
+    SAVE: "SAVE",
+    UPDATE_PROFILE: "UPDATE" 
 };

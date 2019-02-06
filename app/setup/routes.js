@@ -3,6 +3,7 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import SignUp from "../screens/auth/sign-up";
 import Home from "../screens/home/home";
 import Login from "../screens/auth/login";
+import Profile from "../screens/profile/profile";
 
 const StackNavigator = defaultRoute =>
   createStackNavigator(
@@ -15,6 +16,9 @@ const StackNavigator = defaultRoute =>
       },
       Login: {
         screen: Login
+      },
+      Profile: {
+        screen: Profile
       }
     },
     {
